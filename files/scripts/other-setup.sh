@@ -10,6 +10,7 @@ if [ ! -f "$HOME/dotfiles/linker.sh" ]; then
 fi
 
 # Specify link with iTerm preferences
+sudo ln -s /opt/homebrew/bin/zsh /usr/local/bin/zsh  # required for iTerm function
 
 defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/dotfiles/iterm2profile"
 defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
@@ -26,13 +27,6 @@ ln -s /Applications/VeraCrypt.app/Contents/MacOS/Veracrypt /usr/local/bin/veracr
 # Turn on Full Keyboard Access for all controls
 
 defaults write -g AppleKeyboardUIMode -int 2 
-
-# Installing NPM seperately from Node (which should already exist)
-
-if [ ! -x "$(which npm)" ]; then
-    echo prefix=~/.npm-packages >> ~/.npmrc && \
-        curl -L https://www.npmjs.com/install.sh | sh
-fi
 
 # Install powerline fonts and Spacemacs
 
@@ -54,24 +48,6 @@ if [ ! -d "/Applications/Superhuman.app" ]; then
 fi
 
 # Go Setup
-go get -u github.com/nsf/gocode
-go get golang.org/x/tools/cmd/goimports
-go get -u github.com/uudashr/gopkgs/cmd/gopkgs
-
-# Setup Pyenv default environment
-if [ ! -d "$(pyenv root)/versions/anaconda3-5.2.0" ]; then
-    pyenv install anaconda3-5.2.0
-    # pyenv global anaconda3-5.2.0  # unknown how this affects ansible, can turn on later
-fi
-
-# Ocaml / Reason Setup
-# Already idempotent if you include -n
-
-opam init -n
-opam update
-opam switch create 4.02.3+buckle-1
-
-eval $(opam env)
-opam install -y ocp-indent
-opam install -y merlin
+go install golang.org/x/tools/gopls@latest
+go install golang.org/x/tools/cmd/goimports@latest
 
