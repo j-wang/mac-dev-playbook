@@ -9,12 +9,12 @@ if [ ! -f "$HOME/dotfiles/linker.sh" ]; then
         $HOME/dotfiles/linker.sh
 fi
 
-# Specify link with iTerm preferences
-
+# Specify iTerm2 setup
 sudo ln -s /opt/homebrew/bin/zsh /usr/local/bin/zsh  # required for iTerm function
-
-defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/dotfiles/iterm2profile"
-defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
+defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$HOME/dotfiles/iterm2profile"
+defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
+defaults write com.googlecode.iterm2 NoSyncNeverRemindPrefsChangesLostForFile_selection -bool true  # stop your settings will be lost nag
+killall cfprefsd  # flush pref cache
 
 # Create settings for other editors
 
@@ -51,36 +51,4 @@ fi
 # Go Setup
 go install golang.org/x/tools/gopls@latest
 go install golang.org/x/tools/cmd/goimports@latest
-go install github.com/uudashr/gopkgs/cmd/gopkgs@latest
 
-# Default scientific environment
-# if conda env list | grep -q "scientific3_9"
-# then
-# 	echo "Environment done."
-# else
-# 	conda create --name scientific3_9 python=3.9 -y
-# fi
-
-conda init
-# conda activate scientific3_9
-conda activate  # install into base
-conda install -yq numpy
-conda install -yq pandas
-conda install -yq matplotlib
-conda install -yq plotly
-conda install -yq scikit-learn
-conda install -yq jupyter
-conda install -yq jupyterlab
-
-
-# Ocaml / Reason Setup
-# Already idempotent if you include -n
-# Eliminate, not necessary
-
-# opam init -n
-# opam update
-# opam switch create 4.02.3+buckle-1
-# 
-# eval $(opam env)
-# opam install -y ocp-indent
-# opam install -y merlin
