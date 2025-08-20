@@ -9,11 +9,12 @@ if [ ! -f "$HOME/dotfiles/linker.sh" ]; then
         $HOME/dotfiles/linker.sh
 fi
 
-# Specify link with iTerm preferences
+# Specify iTerm2 setup
 sudo ln -s /opt/homebrew/bin/zsh /usr/local/bin/zsh  # required for iTerm function
-
-defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/dotfiles/iterm2profile"
-defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
+defaults write com.googlecode.iterm2 PrefsCustomFolder -string "$HOME/dotfiles/iterm2profile"
+defaults write com.googlecode.iterm2 LoadPrefsFromCustomFolder -bool true
+defaults write com.googlecode.iterm2 NoSyncNeverRemindPrefsChangesLostForFile_selection -bool true  # stop your settings will be lost nag
+killall cfprefsd  # flush pref cache
 
 # Create settings for other editors
 
