@@ -10,7 +10,6 @@ if [ ! -f "$HOME/dotfiles/linker.sh" ]; then
 fi
 
 # Specify link with iTerm preferences
-
 sudo ln -s /opt/homebrew/bin/zsh /usr/local/bin/zsh  # required for iTerm function
 
 defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "~/dotfiles/iterm2profile"

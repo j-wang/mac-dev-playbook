@@ -157,7 +157,3 @@ npm_packages:
   - javascript-typescript-langserver
 
 configure_sublime: false
-
-# Glob pattern to ansible task files to run after all other tasks are finished.
-post_provision_tasks:
-  - "./tasks/other-setup.yml"
