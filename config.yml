@@ -86,6 +86,7 @@ homebrew_installed_packages:
   - ffmpeg
   - themekit
   - geckodriver
+  - multimarkdown
   - pandoc
   - gpg
   - mas
