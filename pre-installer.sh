@@ -1,27 +1,17 @@
 #!/bin/bash
+set -euo pipefail
 
-xcode-select --install
-xcodebuild -license accept
+xcode-select --install || true
+sudo xcodebuild -license accept
 
-if ! command -v brew &> /dev/null
-then
+if ! command -v brew &>/dev/null; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
-export PATH="$HOME/Library/Python/3.8/bin:/opt/homebrew/bin:$PATH"
-sudo pip3 install --upgrade pip
-# pip3 install ansible
+export PATH="/opt/homebrew/bin:$PATH"
 
-brew install ansible  # this seems to work better
+brew install ansible
 
 ansible-galaxy install -r requirements.yml
 
-brew install jq
-DLURL=$(curl --silent "https://api.github.com/repos/kcrawford/dockutil/releases/latest" | jq -r .assets[].browser_download_url | grep pkg)
-curl -sL ${DLURL} -o /tmp/dockutil.pkg
-sudo installer -pkg "/tmp/dockutil.pkg" -target /
-rm /tmp/dockutil.pkg
-
-brew install svn
-
-sudo softwareupdate --install-rosetta
+sudo softwareupdate --install-rosetta --agree-to-license

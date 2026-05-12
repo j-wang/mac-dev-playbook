@@ -1,8 +1,8 @@
 #!/bin/bash
+set -euo pipefail
 
-# Required for Apple Silicon
-export PATH="$HOME/Library/Python/3.8/bin:/opt/homebrew/bin:$PATH"
-export PATH=/opt/homebrew/opt/ruby/bin:$PATH
-export PATH=`gem environment gemdir`/bin:$PATH
+# Required for Apple Silicon bootstrap shells that haven't loaded ~/.zshrc yet.
+export PATH="/opt/homebrew/bin:/opt/homebrew/opt/ruby/bin:$PATH"
+export PATH="$(gem environment gemdir)/bin:$PATH"
 
-ansible-playbook main.yml --ask-become-pass
+ansible-playbook main.yml --ask-become-pass "$@"
